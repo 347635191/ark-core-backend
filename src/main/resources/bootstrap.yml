@@ -1,2 +1,23 @@
 server:
   port: 9006
+  shutdown: graceful
+
+spring:
+  profiles:
+    active: ${ENV:dev}
+  application:
+    name: statistics
+  cloud:
+    nacos:
+      config:
+        namespace: a1a692dc-f1ce-4044-aa43-4f803fc44ea7
+        file-extension: yml
+        group: ${spring.profiles.active}
+        extension-configs:
+          - data-id: ${spring.application.name}.yml
+            group: ${spring.profiles.active}
+            refresh: true
+        shared-configs:
+          - data-id: ${spring.application.name}.yml
+            group: DEFAULT_GROUP
+            refresh: true
